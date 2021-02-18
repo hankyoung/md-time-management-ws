@@ -3,7 +3,6 @@ package com.knb.mdtimemanagement.time;
 import com.knb.mdtimemanagement.common.BaseResponse;
 import com.knb.mdtimemanagement.common.ErrorCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,6 @@ public class ActivityController {
         return ResponseEntity.ok("Welcome to Minh Dang time management web services");
     }
 
-    @CrossOrigin
     @PostMapping(value = "/activities")
     public ResponseEntity<BaseResponse> saveActivity(@RequestParam ActivityEnum action) {
         final BaseResponse response = new BaseResponse();
