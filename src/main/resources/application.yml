@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/md
+    username: root
+    password: root
+
+  web:
+    locale: vi
+
+  messages:
+    fallback-to-system-locale: false
+    basename: static.messages
+
+server:
+  port: 8080
+
+# Keycloak
+keycloak:
+  realm: keycloak-demo
+  auth-server-url: http://localhost:8180/auth
+  ssl-required: external
+  resource: md-time-management
+  credentials.secret: 4875c171-ac39-4965-b596-85ec1743cba0
+  use-resource-role-mappings: true
+  bearer-only: true
