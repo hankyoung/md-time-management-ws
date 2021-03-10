@@ -31,11 +31,14 @@ public class ActivityDomain {
     private Instant endTime;
     private Long volume;
     private Long fromActivityId;
+    private Boolean mamaMilk;
 
-    public ActivityDomain(ActivityEnum action) {
-        createdOn = Instant.now();
+    public ActivityDomain(ActivityRequest data) {
+        createdOn = Instant.ofEpochSecond(data.getCreatedOn());
         status = StatusEnum.ACTIVE;
-        activity = action;
-        if (action.equals(ActivityEnum.SLEEP)) startTime = Instant.now();
+        activity = ActivityEnum.getEnum(data.getActivity());
+        volume = data.getVolume();
+        mamaMilk = data.getIsMamaMilk();
+        if (activity.equals(ActivityEnum.SLEEP)) startTime = Instant.ofEpochSecond(data.getCreatedOn());
     }
 }

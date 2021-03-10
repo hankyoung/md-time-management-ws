@@ -19,7 +19,7 @@ public enum ActivityEnum {
 
     public static ActivityEnum getEnum(String value) {
         for (ActivityEnum v : values())
-            if (v.getActivityDesc().equalsIgnoreCase(value)) return v;
+            if (v.name().equalsIgnoreCase(value)) return v;
         throw new IllegalArgumentException();
     }
 }

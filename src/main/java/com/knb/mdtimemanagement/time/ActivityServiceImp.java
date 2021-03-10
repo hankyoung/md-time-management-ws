@@ -21,8 +21,9 @@ public class ActivityServiceImp implements ActivityService {
     }
 
     @Override
-    public ActivityData create(ActivityEnum action, BaseResponse response) {
-        ActivityDomain activity = new ActivityDomain(action);
+    public ActivityData create(ActivityRequest data, BaseResponse response) {
+        ActivityEnum action = ActivityEnum.getEnum(data.getActivity());
+        ActivityDomain activity = new ActivityDomain(data);
         List<ActivityDomain> sleepActivities = findRecentActivityBy(ActivityEnum.SLEEP)
                 .stream().filter(a -> a.getStatus().equals(StatusEnum.IN_PROGRESS)).collect(Collectors.toList());
         if (action.equals(ActivityEnum.SLEEP)) {
@@ -64,6 +65,7 @@ public class ActivityServiceImp implements ActivityService {
         activityData.setStatusName(activity.getStatus().getStatusName());
         activityData.setActivity(activity.getActivity());
         activityData.setActivityDesc(activity.getActivity().getActivityDesc());
+        activityData.setIsMamaMilk(activity.getMamaMilk());
         return activityData;
     }
 }

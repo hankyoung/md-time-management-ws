@@ -3,10 +3,11 @@ package com.knb.mdtimemanagement.time;
 import com.knb.mdtimemanagement.common.BaseResponse;
 import com.knb.mdtimemanagement.common.ErrorCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,10 +19,11 @@ public class ActivityController {
         this.activityService = activityService;
     }
 
+    @CrossOrigin
     @PostMapping("/activities")
-    public ResponseEntity<BaseResponse> saveActivity(@RequestParam ActivityEnum action) {
+    public ResponseEntity<BaseResponse> saveActivity(@RequestBody ActivityRequest data) {
         final BaseResponse response = new BaseResponse();
-        activityService.create(action, response);
+        activityService.create(data, response);
         if (response.getErrorCode().equals(ErrorCode.SUCCESS.value())) {
             response.setIsSuccess(Boolean.TRUE);
         } else {
