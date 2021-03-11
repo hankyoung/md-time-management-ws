@@ -10,6 +10,10 @@ public class ActivityData {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Instant createdOn;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
+    private Instant startTime;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
+    private Instant endTime;
     private StatusEnum status;
     private String statusName;
     private ActivityEnum activity;

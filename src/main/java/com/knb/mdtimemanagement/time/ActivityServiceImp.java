@@ -40,7 +40,7 @@ public class ActivityServiceImp implements ActivityService {
                 return null;
             }
             ActivityDomain sleepActivity = sleepActivities.get(0);
-            sleepActivity.setEndTime(Instant.now());
+            sleepActivity.setEndTime(Instant.ofEpochSecond(data.getCreatedOn()));
             sleepActivity.setStatus(StatusEnum.ACTIVE);
             activityRepository.save(sleepActivity);
             activity.setFromActivityId(sleepActivity.getId());
@@ -51,6 +51,12 @@ public class ActivityServiceImp implements ActivityService {
         response.setMessage(messageService.getMessage("insert.data.success"));
         response.setData(activityData);
         return activityData;
+    }
+
+    @Override
+    public List<ActivityData> findActivitiesByDate(Long timeStamp) {
+        Instant date = Instant.ofEpochSecond(timeStamp);
+        return activityRepository.findActivityByDateOrderByCreatedOnDesc(date).stream().map(this::populateActivityDTO).collect(Collectors.toList());
     }
 
     private List<ActivityDomain> findRecentActivityBy(ActivityEnum activity) {
@@ -66,6 +72,9 @@ public class ActivityServiceImp implements ActivityService {
         activityData.setActivity(activity.getActivity());
         activityData.setActivityDesc(activity.getActivity().getActivityDesc());
         activityData.setIsMamaMilk(activity.getMamaMilk());
+        activityData.setVolume(activity.getVolume());
+        activityData.setStartTime(activity.getStartTime());
+        activityData.setEndTime(activity.getEndTime());
         return activityData;
     }
 }
